@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroLinkED - Discover Your Brainprint</title>
+    <link rel="stylesheet" href="NeuroLinked.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">🧠 NeuroLinkED</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#assessment">Assessment</a></li>
+                    <li><a href="#matches">Matches</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Discover Your Neural <span style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Brainprint</span></h1>
+                    <p>Unlock your cognitive potential with AI-powered voice analysis and personality assessment. Find your perfect teammates, mentors, and projects.</p>
+                    <a href="#assessment" class="cta-button" onclick="startAssessment()">Start Your Assessment</a>
+                </div>
+                <div class="brain-container">
+                    <canvas id="brain-canvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating elements for visual appeal -->
+        <div class="floating-element" style="top: 20%; left: 10%; font-size: 2rem;">🧮</div>
+        <div class="floating-element" style="top: 60%; right: 15%; font-size: 2rem;">🎨</div>
+        <div class="floating-element" style="bottom: 30%; left: 20%; font-size: 2rem;">🤝</div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Core Features</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;">Revolutionary technology that maps your thinking patterns and connects you with the perfect collaborators.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎤</span>
+                    <h3>Voice Analysis</h3>
+                    <p>Advanced AI analyzes your voice patterns to extract personality traits, confidence levels, and communication style.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>Cognitive Assessment</h3>
+                    <p>Smart quiz system that identifies your thinking patterns, problem-solving style, and cognitive preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔮</span>
+                    <h3>Brainprint Generation</h3>
+                    <p>Creates a unique neural signature that maps your cognitive strengths and personality type.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3>Smart Matchmaking</h3>
+                    <p>AI-powered system finds compatible teammates, mentors, and collaboration opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Dynamic Profiling</h3>
+                    <p>Interactive dashboard showing your strengths, growth areas, and optimal working conditions.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Project Matching</h3>
+                    <p>Identifies ideal project types and team roles based on your cognitive profile.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Container -->
+    <div id="assessment-section" style="display: none; min-height: 100vh; padding: 6rem 0; background: #f8f9fa;">
+        <div class="container">
+            <div class="assessment-container">
+                <div class="step-indicator">
+                    <div class="step active" id="step-1">1</div>
+                    <div class="step" id="step-2">2</div>
+                    <div class="step" id="step-3">3</div>
+                    <div class="step" id="step-4">4</div>
+                </div>
+
+                <!-- Voice Analysis Step -->
+                <div id="voice-step" class="assessment-step">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Voice Analysis</h2>
+                    <div class="voice-recorder">
+                        <p style="margin-bottom: 2rem; color: #666;">Please read the following text aloud for 30 seconds:</p>
+                        <div style="background: #e9ecef; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; font-style: italic;">
+                            "Innovation is the key to solving complex challenges. When teams collaborate effectively, they can achieve remarkable results. I believe in the power of diverse perspectives and creative problem-solving to drive meaningful change."
+                        </div>
+                        <button class="record-button" id="recordBtn" onclick="toggleRecording()">🎤</button>
+                        <div class="waveform" id="waveform" style="display: none;">
+                            <!-- Wave bars will be generated here -->
+                        </div>
+                        <p id="record-status" style="margin-top: 1rem; color: #666;">Click to start recording</p>
+                    </div>
+                </div>
+
+                <!-- Cognitive Quiz Step -->
+                <div id="quiz-step" class="assessment-step" style="display: none;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Cognitive Assessment</h2>
+                    <div class="quiz-container" id="quiz-container">
+                        <!-- Quiz questions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Brainprint Generation -->
+                <div id="brainprint-step" class="assessment-step" style="display: none;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">Generating Your Brainprint</h2>
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                    <p style="text-align: center; color: #666; margin-top: 1rem;">Analyzing your responses and creating your unique neural profile...</p>
+                </div>
+
+                <!-- Results Display -->
+                <div id="results-step" class="assessment-step" style="display: none;">
+                    <div class="brainprint-display" id="brainprint-display">
+                        <!-- Results will be displayed here -->
+                    </div>
+                    <!-- Smart Matchmaking -->
+<div id="matchmaking-step" class="assessment-step" style="display: none;">
+    <h2 style="text-align: center;">Smart Matchmaking</h2>
+    <p style="text-align: center; color: #666;">Finding ideal collaborators based on your Brainprint...</p>
+</div>
+
+<!-- Dynamic Profiling -->
+<div id="profiling-step" class="assessment-step" style="display: none;">
+    <h2 style="text-align: center;">Dynamic Profiling</h2>
+    <p style="text-align: center; color: #666;">Visualizing your strengths and cognitive style...</p>
+</div>
+
+<!-- Project Matching -->
+<div id="project-step" class="assessment-step" style="display: none;">
+    <h2 style="text-align: center;">Project Matching</h2>
+    <p style="text-align: center; color: #666;">Suggesting suitable project types and team roles...</p>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="NeuroLinked.js"></script>
+</body>
+<button class="cta-button" onclick="submitQuiz()">Submit Quiz</button>
+
+</html>
